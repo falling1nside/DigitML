@@ -39,6 +39,7 @@ class NeuralNetwork {
         unsigned int compute(const Example& e);
 
         std::vector<double> sigmoid(const std::vector<double>& x);
+        std::vector<double> tanh(const std::vector<double>& x);
         std::vector<double> bent_identity(const std::vector<double>& x);
         std::vector<double> sigmoid_prime(const std::vector<double>& x);
 };
