@@ -141,10 +141,12 @@ void NeuralNetwork::compute_gradients_and_cost(
 inline std::vector<double> NeuralNetwork::feed_forward(
         const std::vector<double>& input,
         const Matrix<double>& weights) {
-    #ifdef PERS
+    #ifdef USE_TANH
+        return tanh(weights * input); // Используем tanh
+    #elif defined(PERS)
         return bent_identity(weights * input);
     #else
-        return sigmoid(weights * input);
+        return sigmoid(weights * input); // По умолчанию сигмоида
     #endif
 }
 
