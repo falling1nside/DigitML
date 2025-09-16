@@ -75,6 +75,17 @@ TEST(FunctionTesting, test_sigmoid_comp) {
 #endif
 
 int main(int argc, char **argv) {
+    std::cout << "Choose activation function (1 - Sigmoid, 2 - Tanh): ";
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 2) {
+#define USE_TANH
+        std::cout << "Using Tanh activation function" << std::endl;
+    }
+    else {
+        std::cout << "Using Sigmoid activation function" << std::endl;
+    }
     #ifdef TEST
         ::testing::InitGoogleTest(&argc, argv);
         return RUN_ALL_TESTS();
