@@ -196,6 +196,13 @@ std::vector<double> NeuralNetwork::bent_identity(const std::vector<double>& x) {
     return result;
 }
 
+std::vector<double> NeuralNetwork::tanh(const std::vector<double>& x) {
+    std::vector<double> result(x.size());
+    for (unsigned int i = 0; i < x.size(); i++)
+        result[i] = std::tanh(x[i]);
+    return result;
+}
+
 std::vector<double> NeuralNetwork::sigmoid_prime(const std::vector<double>& x) {
     std::vector<double> result(x.size());
     for (unsigned int i = 0; i < result.size(); i++) {
