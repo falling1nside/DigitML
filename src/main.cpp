@@ -38,33 +38,33 @@ const double calculate_accuracy(const Matrix<unsigned char>& images, const Matri
 #ifdef TESTS
 #include <gtest/gtest.h>
 
-void run_tanh_tests() {
-    NeuralNetwork nn;
+    NeuralNetwork n;
+    TEST(TanhTest, ZeroInput) {
+        std::vector<double> result = n.tanh({ 0.0 });
+        EXPECT_NEAR(result[0], 0.0, 1e-9);
+    }
 
-    // Test 1: Zero input
-    std::vector<double> result1 = nn.tanh({ 0.0 });
-    assert(fabs(result1[0] - 0.0) < 1e-9);
+    TEST(TanhTest, PositiveInput) {
+        std::vector<double> result = n.tanh({ 1.0 });
+        EXPECT_NEAR(result[0], std::tanh(1.0), 1e-9);
+    }
 
-    // Test 2: Positive input
-    std::vector<double> result2 = nn.tanh({ 1.0 });
-    assert(fabs(result2[0] - std::tanh(1.0)) < 1e-9);
+    TEST(TanhTest, NegativeInput) {
+        std::vector<double> result = n.tanh({ -1.0 });
+        EXPECT_NEAR(result[0], std::tanh(-1.0), 1e-9);
+    }
 
-    // Test 3: Negative input
-    std::vector<double> result3 = nn.tanh({ -1.0 });
-    assert(fabs(result3[0] - std::tanh(-1.0)) < 1e-9);
+    TEST(TanhTest, LargeValues) {
+        std::vector<double> result = n.tanh({ 5.0 });
+        EXPECT_NEAR(result[0], 0.9999092, 1e-7);
+    }
 
-    // Test 4: Large values
-    std::vector<double> result4 = nn.tanh({ 5.0 });
-    assert(fabs(result4[0] - 0.9999092) < 1e-7);
-
-    // Test 5: Multiple values
-    std::vector<double> result5 = nn.tanh({ -2.0, 0.0, 2.0 });
-    assert(fabs(result5[0] - std::tanh(-2.0)) < 1e-9);
-    assert(fabs(result5[1] - 0.0) < 1e-9);
-    assert(fabs(result5[2] - std::tanh(2.0)) < 1e-9);
-
-    std::cout << "All tanh tests passed!" << std::endl;
-}
+    TEST(TanhTest, MultipleValues) {
+        std::vector<double> result = n.tanh({ -2.0, 0.0, 2.0 });
+        EXPECT_NEAR(result[0], std::tanh(-2.0), 1e-9);
+        EXPECT_NEAR(result[1], 0.0, 1e-9);
+        EXPECT_NEAR(result[2], std::tanh(2.0), 1e-9);
+    }
 
 NeuralNetwork n;
 
