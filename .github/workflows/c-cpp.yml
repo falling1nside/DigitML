@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: C/C++ CI with GoogleTest
 
 on:
   push:
@@ -13,17 +13,36 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: installation
-      run: sudo apt install -y googletest libgtest-dev build-essential gcovr
-    - name: compill unit tests
-      run: make test
-    - name: run unit tests
-      run: ./main
-    - name: make standart activate function
-      run: make 
-    - name: run standart activate function
-      run: ./main
-    - name: make bent_identity activate function
-      run: make bent_identity
-    - name: run bent_identity activate function
-      run: ./main
+      run: sudo apt install -y googletest libgtest-dev build-essential gcovr libpng-dev
+
+    - name: Compile with Sigmoid activation
+      run: |
+        cd src
+        g++ -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o main_sigmoid -std=c++11
+
+    - name: Run Sigmoid activation
+      run: |
+        cd src
+        echo "1" | ./main_sigmoid
+
+    - name: Compile with Tanh activation  
+      run: |
+        cd src
+        g++ -DUSE_TANH -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o main_tanh -std=c++11
+
+    - name: Run Tanh activation
+      run: |
+        cd src
+        echo "2" | ./main_tanh
+
+    - name: Compile unit tests
+      run: |
+        cd src
+        g++ -DTESTS -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++11
+
+    - name: Run unit tests
+      run: |
+        cd src
+        ./test_app
