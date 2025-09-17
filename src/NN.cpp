@@ -1,4 +1,4 @@
-
+#include <cassert>
 #include <cstdlib>
 #include <random>
 
@@ -142,11 +142,11 @@ inline std::vector<double> NeuralNetwork::feed_forward(
         const std::vector<double>& input,
         const Matrix<double>& weights) {
     #ifdef USE_TANH
-        return tanh(weights * input); // Используем tanh
+        return tanh(weights * input); // Г€Г±ГЇГ®Г«ГјГ§ГіГҐГ¬ tanh
     #elif defined(PERS)
         return bent_identity(weights * input);
     #else
-        return sigmoid(weights * input); // По умолчанию сигмоида
+        return sigmoid(weights * input); // ГЏГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ Г±ГЁГЈГ¬Г®ГЁГ¤Г 
     #endif
 }
 
