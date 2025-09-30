@@ -4,7 +4,7 @@
 #include <cstdint>
 
 #ifdef DEBUG
-void warn(const char* func, const char* message) {
+inline void warn(const char* func, const char* message) {
     printf("[WARNING]: (%s): %s (you've been warned)\n", func, message);
 }
 #else
