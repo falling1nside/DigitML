@@ -19,7 +19,7 @@ jobs:
 
     - name: Compile project
       run: |
-        g++ -Ilib src/main.cpp src/NN.cpp -o main -std=c++11
+        g++ -Ilib src/main.cpp src/NN.cpp -o main -std=c++14
 
     - name: Compile with Sigmoid activation
       run: |
