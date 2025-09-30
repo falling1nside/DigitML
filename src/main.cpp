@@ -34,7 +34,7 @@ const double calculate_accuracy(const Matrix<unsigned char>& images, const Matri
 
   return accuracy;
 }
-
+NeuralNetwork n;
 #ifdef TESTS
 #include <gtest/gtest.h>
 
@@ -81,7 +81,7 @@ TEST(FunctionTesting, test_sigmoid_incr) {
 TEST(FunctionTesting, test_sigmoid_decr) {
     Matrix<unsigned char> images_test(0, 0);
     Matrix<unsigned char> labels_test(0, 0);
-    inline load_dataset(images_test, labels_test, "data/t10k-images-idx3-ubyte", "data/t10k-labels-idx1-ubyte");
+    load_dataset(images_test, labels_test, "data/t10k-images-idx3-ubyte", "data/t10k-labels-idx1-ubyte");
     const unsigned int num_iterations = 5;
     EXPECT_GT(calculate_accuracy(images_test, labels_test, n), 0.01);
 }
