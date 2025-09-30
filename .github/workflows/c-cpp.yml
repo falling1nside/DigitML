@@ -19,10 +19,10 @@ jobs:
         
     - name: Compile and run main program
       run: |
-        g++ -Ilib src/main.cpp src/NN.cpp lib/matrix.cpp -o main -std=c++14
+        g++ -Ilib src/main.cpp src/NN.cpp -o main -std=c++14
         echo "1" | timeout 60s ./main || echo "Program completed"
         
     - name: Compile and run tests
       run: |
-        g++ -DTESTS -Ilib src/main.cpp src/NN.cpp lib/matrix.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++14
+        g++ -DTESTS -Ilib src/main.cpp src/NN.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++14
         ./test_app
