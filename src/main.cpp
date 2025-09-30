@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
     }
 
     #ifdef TEST_TANH
-    run_tanh_tests(); // Запуск ваших тестов
+    run_tanh_tests(); // Г‡Г ГЇГіГ±ГЄ ГўГ ГёГЁГµ ГІГҐГ±ГІГ®Гў
     return 0;
     #endif
 
@@ -132,36 +132,27 @@ int main(int argc, char **argv) {
     Matrix<unsigned char> images_test(0, 0);
     Matrix<unsigned char> labels_test(0, 0);
     load_dataset(images_test, labels_test, "data/t10k-images-idx3-ubyte", "data/t10k-labels-idx1-ubyte");
-
-    NeuralNetwork n;
-
-    // Tests to see that data was read in properly
-    /*for (int i = 0; i < 10; ++i) {
-        Example e;
-        for (int j = 0; j < 28*28; ++j) {
-            e.data[j] = images_train[i][j];
-        }
-        e.label = labels_train[i][0];
-        debug(e);
-        printf("Guess: %d\n", n.compute(e));
-    }
-    for (int i = 0; i < 10; ++i) {
-        Example e;
-        for (int j = 0; j < 28*28; ++j) {
-            e.data[j] = images_test[i][j];
-        }
-        e.label = labels_test[i][0];
-        debug(e);
-        printf("Guess: %d\n", n.compute(e));
-    }*/
-    const unsigned int num_iterations = 5;
-    n.train(num_iterations, images_train, labels_train);
-
-    const double accuracy_train = calculate_accuracy(images_train, labels_train, n);
-    const double accuracy_test = calculate_accuracy(images_test, labels_test, n);
-
-    printf("Accuracy on training data: %f\n", accuracy_train);
-    printf("Accuracy on test data: %f\n", accuracy_test);
-
     return 0;
+        // comparison of tanh ang sigmoid
+    std::cout << "\n=== COMPARING SIGMOID vs TANH ===" << std::endl;
+
+    // test 1: sigmoid
+    std::cout << "Testing Sigmoid..." << std::endl;
+    NeuralNetwork nn_sigmoid;
+    nn_sigmoid.train(num_iterations, images_train, labels_train);
+    double accuracy_sigmoid = calculate_accuracy(images_test, labels_test, nn_sigmoid);
+
+    // test 2: Tanh
+    std::cout << "Testing Tanh..." << std::endl;
+    #define USE_TANH
+    NeuralNetwork nn_tanh;
+    nn_tanh.train(num_iterations, images_train, labels_train);
+    double accuracy_tanh = calculate_accuracy(images_test, labels_test, nn_tanh);
+    #undef USE_TANH
+
+    // results
+    std::cout << "\n=== RESULTS ===" << std::endl;
+    std::cout << "Sigmoid accuracy: " << accuracy_sigmoid * 100 << "%" << std::endl;
+    std::cout << "Tanh accuracy: " << accuracy_tanh * 100 << "%" << std::endl;
+    std::cout << "Difference: " << (accuracy_tanh - accuracy_sigmoid) * 100 << "%" << std::endl;
 }
