@@ -58,5 +58,4 @@ template <typename T> class Matrix {
         void debug() const;
 };
 
-#include "matrix.cpp"
 #endif
