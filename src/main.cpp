@@ -38,7 +38,6 @@ const double calculate_accuracy(const Matrix<unsigned char>& images, const Matri
 #ifdef TESTS
 #include <gtest/gtest.h>
 
-    NeuralNetwork n;
     TEST(TanhTest, ZeroInput) {
         std::vector<double> result = n.tanh({ 0.0 });
         EXPECT_NEAR(result[0], 0.0, 1e-9);
@@ -135,7 +134,9 @@ int main(int argc, char **argv) {
     return 0;
         // comparison of tanh ang sigmoid
     std::cout << "\n=== COMPARING SIGMOID vs TANH ===" << std::endl;
-
+    
+    const unsigned int num_iterations = 5;
+    
     // test 1: sigmoid
     std::cout << "Testing Sigmoid..." << std::endl;
     NeuralNetwork nn_sigmoid;
