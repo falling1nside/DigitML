@@ -1,18 +1,1 @@
-name: C/C++ CI
 
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Install and test
-      run: |
-        sudo apt update
-        sudo apt install -y libgtest-dev build-essential libpng-dev
-        cd /usr/src/gtest && sudo cmake . && sudo make && sudo cp lib/*.a /usr/lib
-        cd /home/runner/work/DigitML/DigitML/src
-        g++ -DTESTS -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++11
-        ./test_app
