@@ -9,6 +9,8 @@
 #include "../lib/matrix.h"
 #include "dataset.hpp"
 #include <cmath>
+#include <vector>
+#include <cassert>
 
 class NeuralNetwork {
     private:
@@ -43,7 +45,5 @@ class NeuralNetwork {
         std::vector<double> bent_identity(const std::vector<double>& x);
         std::vector<double> sigmoid_prime(const std::vector<double>& x);
 };
-
-#include "NN.cpp"
 
 #endif
