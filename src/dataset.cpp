@@ -34,7 +34,7 @@ source: http://yann.lecun.com/exdb/mnist/
     }} while (0)
 
 // Load all of the data from the image and label files into data and labels
-void load_data(
+inline void load_data(
         Matrix<unsigned char>& images,
         Matrix<unsigned char>& labels,
         FILE *image_file,
@@ -56,7 +56,7 @@ void load_data(
 }
 
 //TODO move somewhere better?
-unsigned int read_int(FILE* f) {
+inline unsigned int read_int(FILE* f) {
 	static unsigned char buffer[4];
     fread(&buffer, 1, 4, f);
 	//bitshift in direction of most significant bit to convert little endian to big endian
@@ -66,7 +66,7 @@ unsigned int read_int(FILE* f) {
          | buffer[0] << 24;
 }
 
-void load_dataset(
+inline void load_dataset(
         Matrix<unsigned char>& images,
         Matrix<unsigned char>& labels,
         const char *image_file_name,
