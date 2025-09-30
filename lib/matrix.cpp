@@ -1,3 +1,7 @@
+#include "matrix.h"
+#include <vector>
+#include <iostream>
+#include <cstdint>
 
 #ifdef DEBUG
 void warn(const char* func, const char* message) {
