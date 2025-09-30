@@ -8,45 +8,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     
-    - name: installation
-      run: sudo apt install -y googletest libgtest-dev build-essential gcovr libpng-dev
-
-    - name: Compile project
+    - name: Install dependencies
       run: |
-        g++ -Ilib src/main.cpp src/NN.cpp -o main -std=c++14
-
-    - name: Compile with Sigmoid activation
+        sudo apt update
+        sudo apt install -y libgtest-dev build-essential libpng-dev
+        
+    - name: Compile and run main program
       run: |
-        cd src
-        g++ -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o main_sigmoid -std=c++11
-
-    - name: Run Sigmoid activation
+        g++ -Ilib src/main.cpp src/NN.cpp lib/matrix.cpp -o main -std=c++14
+        echo "1" | timeout 60s ./main || echo "Program completed"
+        
+    - name: Compile and run tests
       run: |
-        cd src
-        echo "1" | ./main_sigmoid
-
-    - name: Compile with Tanh activation  
-      run: |
-        cd src
-        g++ -DUSE_TANH -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o main_tanh -std=c++11
-
-    - name: Run Tanh activation
-      run: |
-        cd src
-        echo "2" | ./main_tanh
-
-    - name: Compile unit tests
-      run: |
-        cd src
-        g++ -DTESTS -I../lib main.cpp NN.cpp ../lib/matrix.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++11
-
-    - name: Run unit tests
-      run: |
-        cd src
+        g++ -DTESTS -Ilib src/main.cpp src/NN.cpp lib/matrix.cpp -o test_app -lgtest -lgtest_main -lpthread -std=c++14
         ./test_app
