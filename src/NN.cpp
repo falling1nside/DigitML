@@ -1,13 +1,16 @@
+#include "NN.hpp"
+#include "../lib/matrix.h"
 #include <cassert>
-#include <cstdlib>
 #include <random>
+#include <cmath>
+#include <vector>
+#include <iostream>
 
 // TODO valarray?
 std::vector<double> operator-(
         const std::vector<double>& lhs,
         const std::vector<double>& rhs) {
-    assert(lhs.size() == rhs.size(),
-        "std::vector::operator-: Inconsistent size", 2);
+    assert(lhs.size() == rhs.size());
     std::vector<double> result(lhs.size());
     for (unsigned int i = 0; i < lhs.size(); i++)
         result[i] = lhs[i] - rhs[i];
