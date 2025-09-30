@@ -65,8 +65,6 @@ NeuralNetwork n;
         EXPECT_NEAR(result[2], std::tanh(2.0), 1e-9);
     }
 
-NeuralNetwork n;
-
 TEST(FunctionTesting, test_bent_identity) {
   std::vector<double> t1 = {0};
   EXPECT_NEAR(n.bent_identity(t1)[0], 0, 1e-4);
@@ -90,7 +88,7 @@ TEST(FunctionTesting, test_throw) {
     const unsigned int num_iterations = 5;
     Matrix<unsigned char> images_train(0, 0);
     Matrix<unsigned char> labels_train(0, 0);
-    inline load_dataset(images_train, labels_train, "data/train-images-idx3-ubyte", "data/train-labels-idx1-ubyte");
+    load_dataset(images_train, labels_train, "data/train-images-idx3-ubyte", "data/train-labels-idx1-ubyte");
     EXPECT_NO_THROW(n.train(num_iterations, images_train, labels_train));
 }
 
